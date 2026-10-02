@@ -1,0 +1,748 @@
+[
+    {
+        "name": "Aksel Wilhelmsen",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Vest",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Aleksander",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Moppa (Andreas Indreråk)",
+        "gender": "Mann",
+        "role": [
+            "Voksen"
+        ],
+        "height": "Langbeint",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Info. Sec"
+    },
+    {
+        "name": "Andreas Bertelsen (Berty)",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Sverige-ish",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Antonie",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Axel Strand",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5.",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Langbeint",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Christoffer Toffeloffen (toffen)",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Edvin",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5.",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Eirik Slettis Slettan",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Eivind",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Emrik",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Daljehore",
+        "region": "Trøndelag",
+        "profil": "DASS"
+    },
+    {
+        "name": "Einar",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Fredrik (freddebass)",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Sverige-ish",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Gjermund",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Tårnhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Ingeborg",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Daljehore",
+        "region": "Øst",
+        "profil": "Nettverk"
+    },
+    {
+        "name": "Iqra",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Jakob",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Jan",
+        "gender": "Mann",
+        "role": [
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Molde",
+        "profil": ":/"
+    },
+    {
+        "name": "Jo",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5.",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Tårnhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Julie",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Trøndelag",
+        "profil": "MCD"
+    },
+    {
+        "name": "Kaja",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "Voksen"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Vest",
+        "profil": "Info. Sec"
+    },
+    {
+        "name": "Karoline",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Kasper",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5.",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Madelen",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Vest",
+        "profil": "DASS"
+    },
+    {
+        "name": "Magnus",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Langbeint",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Maja",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Manav",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Vest",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Maren",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Langt nord",
+        "profil": "DASS"
+    },
+    {
+        "name": "Marthe",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Vest",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Martine",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Ja",
+        "region": "Langt nord",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Morten",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Nora",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Ole Marcus",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Tårnhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Per",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Langbeint",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Vest",
+        "profil": "DASS"
+    },
+    {
+        "name": "Robin",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Sindre",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Litt kortere enn menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Langt nord",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Solveig",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Nettverk"
+    },
+    {
+        "name": "Sondre",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Torbjørn",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Tårnhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "T-ruls",
+        "gender": "Mann",
+        "role": [
+            "Voksen"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": ":/"
+    },
+    {
+        "name": "Vanessa",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Ja",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Viktor",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5.",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Vilde",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Ja",
+        "region": "Vest",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Ortega",
+        "gender": "Mann",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Tårnhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Sahara",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Rom",
+            "Kjøkken",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Takhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "Nettverk"
+    },
+    {
+        "name": "Mojave",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Rom"
+        ],
+        "height": "Takhøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Vest",
+        "profil": "Nettverk"
+    },
+    {
+        "name": "Ngorongoro",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Rom"
+        ],
+        "height": "Takhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Komtekloungen",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Rom",
+            "Kjøkken"
+        ],
+        "height": "Takhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Lunsj"
+    },
+    {
+        "name": "Komtekrommet",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Rom",
+            "Legende"
+        ],
+        "height": "Takhøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Trøndelag",
+        "profil": "Sikkerhet"
+    },
+    {
+        "name": "Peter Herrmann",
+        "gender": "Mann",
+        "role": [
+            "Lecturer",
+            "Voksen",
+            "Tysker"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "DASS"
+    },
+    {
+        "name": "Thomas Zinner",
+        "gender": "Mann",
+        "role": [
+            "Lecturer",
+            "Voksen",
+            "Tysker"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "Nettverk"
+    },
+    {
+        "name": "Poul",
+        "gender": "Mann",
+        "role": [
+            "Lecturer",
+            "Voksen"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "DASS"
+    },
+    {
+        "name": "Frank",
+        "gender": "Mann",
+        "role": [
+            "Lecturer",
+            "Legende",
+            "Voksen"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "DASS"
+    },
+    {
+        "name": "Kurusch",
+        "gender": "Mann",
+        "role": [
+            "Lecturer",
+            "Voksen",
+            "Skummel"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "Krypto"
+    },
+    {
+        "name": "Laurent",
+        "gender": "Mann",
+        "role": [
+            "Voksen",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "MCD"
+    },
+    {
+        "name": "Katrien",
+        "gender": "Kvinne",
+        "role": [
+            "Voksen",
+            "Lecturer"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "MCD"
+    },
+    {
+        "name": "Tjerand",
+        "gender": "Mann",
+        "role": [
+            "Voksen",
+            "Lecturer"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Sør",
+        "profil": "Krypto"
+    }
+]
