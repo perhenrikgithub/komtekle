@@ -83,16 +83,16 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-6 md:py-10 px-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-green-500">KOMTEKLE</h1>
+      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-white">Komtekle</h1>
       <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">Gjett hva eller hvem som er riktig svar i dag!</p>
 
       {hasWon ? (
-        <div className="mb-10 text-center animate-fade-in-up">
-          <h2 className="text-3xl font-bold text-green-500 mb-2">Så flink du er! 🎉</h2>
+        <div className="w-full max-w-md mb-10 p-6 text-center bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 animate-fade-in-up">
+          <h2 className="text-3xl font-bold text-white mb-2">Så flink du er! 🎉</h2>
           <p className="text-gray-400 mb-6">Du fant dagens karakter i {guesses.length} forsøk.</p>
           <button
             onClick={shareResult}
-            className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded shadow-lg transition-colors cursor-pointer"
+            className="bg-white hover:bg-gray-200 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg transition-colors cursor-pointer"
           >
             {copied ? 'Kopiert!' : 'Del resultat 📋'}
           </button>
@@ -100,19 +100,34 @@ function App() {
       ) : (
         <div className="relative w-full max-w-md mb-10 z-20">
           {potentialAnswer && (
-            <div className="mb-3 p-3 rounded bg-yellow-500 text-black text-center">
+            <div className="mb-4 p-4 rounded-2xl bg-yellow-500 text-black text-center shadow-lg shadow-black/50 animate-fade-in-up">
               <div className="font-semibold">Ekvivalent svar!</div>
               {guesses[0].name} er veldig lik som svaret, men er ikke riktig!
             </div>
           )}
-          <input
-            type="text"
-            placeholder="Skriv inn et navn..."
-            className="w-full p-4 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500"
-            value={searchTerm}
-            onChange={(e) => { setSearchTerm(e.target.value); setActiveIndex(0); }}
-            onKeyDown={handleKeyDown}
-          />
+          <div className="relative">
+            <svg
+              className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Skriv inn et navn..."
+              className="w-full py-4 pl-14 pr-6 rounded-full bg-white text-gray-900 placeholder-gray-500 shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              value={searchTerm}
+              onChange={(e) => { setSearchTerm(e.target.value); setActiveIndex(0); }}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
 
           {searchTerm.length > 0 && filteredCharacters.length > 0 && (
             <ul className="absolute z-10 w-full bg-gray-800 border border-gray-700 mt-1 max-h-60 overflow-y-auto rounded shadow-xl">
