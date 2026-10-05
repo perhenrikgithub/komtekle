@@ -40,9 +40,9 @@ def get_image_path(name):
     clean_name = ''.join(c for c in name.lower() if c.isalnum() or c in 'æøå')
     return f'public/character_images/{clean_name}.jpg'
 
-CHAR_WITHOUT_IMAGE = True
+CHAR_WITHOUT_IMAGE = False
 IMAGE_WITHOUT_CHAR = False
-EQUAL_USERS = False
+EQUAL_USERS = True
 
 with open('src/data/characters.json') as f:
     characters = json.load(f)

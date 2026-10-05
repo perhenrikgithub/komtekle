@@ -541,7 +541,7 @@
             "5.",
             "Nerd (Linux-bruker)"
         ],
-        "height": "Menneskehøyde",
+        "height": "Langbeint",
         "certified mojavebabe": "Nei",
         "verv-whipped": "Ja",
         "region": "Øst",
@@ -744,5 +744,17 @@
         "verv-whipped": "Nei",
         "region": "Sør",
         "profil": "Krypto"
+    },
+    {
+        "name": "Trond Vatten",
+        "gender": "Mann",
+        "role": [
+            "Voksen"
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "DASS"
     }
 ]
