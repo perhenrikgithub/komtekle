@@ -78,6 +78,19 @@
         "profil": "Sikkerhet"
     },
     {
+        "name": "Bæsjestøvsuger",
+        "gender": "Inkjekjønn",
+        "role": [
+            "Støvsuger",
+            "Nerd (Linux-bruker)"
+        ],
+        "height": "Lommeformat",
+        "certified mojavebabe": "Nei",
+        "verv-whipped": "Nei",
+        "region": "Øst",
+        "profil": "DASS"
+    },
+    {
         "name": "Christoffer Toffeloffen (toffen)",
         "gender": "Mann",
         "role": [
