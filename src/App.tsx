@@ -82,9 +82,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-10 px-4">
-      <h1 className="text-5xl font-bold mb-2 tracking-wider text-green-500">KOMTEKLE</h1>
-      <p className="text-gray-400 mb-8 text-center max-w-md">Gjett hva eller hvem som er riktig svar i dag!</p>
+    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-6 md:py-10 px-4">
+      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-green-500">KOMTEKLE</h1>
+      <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">Gjett hva eller hvem som er riktig svar i dag!</p>
 
       {hasWon ? (
         <div className="mb-10 text-center animate-fade-in-up">
@@ -137,8 +137,60 @@ function App() {
         </div>
       )}
 
+      {/* MOBILE: one card per guess */}
       {guesses.length > 0 && (
-        <div className="max-w-5xl overflow-x-auto pb-4">
+        <div className="md:hidden w-full max-w-md flex flex-col gap-4 pb-4">
+          {guesses.map((guess) => (
+            <div key={guess.name} className="bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 p-3 animate-fade-in-up">
+              <div className="flex items-center gap-4 pb-3 mb-3 border-b border-gray-700">
+                <img
+                  src={getImagePath(guess.name)}
+                  alt={guess.name}
+                  className="w-24 h-24 shrink-0 rounded-full object-cover bg-gray-900 border-2 border-gray-600"
+                  onError={(e) => { e.currentTarget.src = guess.gender === 'Kvinne' ? '/character_images/default_female_avatar.jpg' : '/character_images/default_male_avatar.jpg'; }}
+                />
+                <span className="text-2xl font-semibold">{guess.name}</span>
+              </div>
+              <div className="grid grid-cols-8 gap-2">
+                {GAME_FEATURES.map((feature) => {
+                  const gVal = getFeatureValue(guess, feature.key);
+                  const tVal = getFeatureValue(target, feature.key);
+                  const { color, arrow, displayValue } = evaluateFeature(gVal, tVal, feature);
+
+                  const bgColor =
+                    color === 'green' ? 'bg-green-500' :
+                      color === 'yellow' ? 'bg-yellow-500 text-black' :
+                        'bg-red-500';
+
+                  return (
+                    <div
+                      key={feature.key}
+                      className={`${feature.mobileSpanClass ?? 'col-span-2'} relative min-h-[5.5rem] flex flex-col items-center justify-center gap-1 p-2 overflow-hidden rounded-xl text-center transition-colors duration-500 ${bgColor}`}
+                    >
+                      {arrow === 'up' && (
+                        <img src="/arrow_up.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
+                      )}
+                      {arrow === 'down' && (
+                        <img src="/arrow_down.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
+                      )}
+                      <span className="relative z-10 text-[9px] uppercase leading-tight opacity-80">
+                        {feature.label}
+                      </span>
+                      <span className="relative z-10 text-xs font-semibold leading-tight break-words w-full">
+                        {displayValue}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* DESKTOP: table with one row per guess */}
+      {guesses.length > 0 && (
+        <div className="hidden md:block max-w-5xl overflow-x-auto pb-4">
           <div className="flex flex-col gap-2 min-w-[650px]">
 
             {/* DYNAMIC HEADERS */}
