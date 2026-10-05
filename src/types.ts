@@ -6,6 +6,7 @@ export interface FeatureConfig {
     type: FeatureType;        // How it should be compared
     rankOrder?: string[];     // Used for 'RANKED' (arrows) - ordered low to high
     widthClass: string;       // Tailwind width classes for consistent UI
+    mobileSpanClass?: string; // Tailwind col-span class for the mobile card grid (8 columns, default col-span-2)
 }
 
 export interface ComparisonResult {

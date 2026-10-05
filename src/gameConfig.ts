@@ -14,7 +14,8 @@ export const GAME_FEATURES: FeatureConfig[] = [
         label: 'Type',
         type: 'PARTIAL',
         // widthClass: 'flex-1 min-w-[100px]'
-        widthClass: 'w-32'
+        widthClass: 'w-32',
+        mobileSpanClass: 'col-span-3'
     },
     {
         key: 'height',
@@ -28,7 +29,8 @@ export const GAME_FEATURES: FeatureConfig[] = [
             'Takhøyde',
             'Tårnhøyde'
         ],
-        widthClass: 'w-32'
+        widthClass: 'w-32',
+        mobileSpanClass: 'col-span-3'
     },
     {
         key: 'certified mojavebabe',
