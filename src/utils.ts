@@ -89,3 +89,10 @@ export const isPotentialAnswer = (guess: Character, target: Character): boolean 
 
     return JSON.stringify(guessRest) === JSON.stringify(targetRest);
 };
+// Halloween mode: Oct 15 – Nov 1 (local time). Add ?halloween to the URL to force it on for testing.
+export const isHalloween = (date: Date = new Date()): boolean => {
+    if (new URLSearchParams(window.location.search).has('halloween')) return true;
+    const month = date.getMonth(); // 0-indexed: 9 = October, 10 = November
+    const day = date.getDate();
+    return (month === 9 && day >= 15) || (month === 10 && day === 1);
+};

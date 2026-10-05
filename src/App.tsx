@@ -8,7 +8,8 @@ import {
   getImagePath,
   getFeatureValue,
   evaluateFeature,
-  isPotentialAnswer
+  isPotentialAnswer,
+  isHalloween
 } from './utils';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [copied, setCopied] = useState(false);
 
   const { target, dateKey } = useMemo(() => getDailyCharacter(), []);
+  const halloween = useMemo(() => isHalloween(), []);
 
   const [guesses, setGuesses] = useState<Character[]>(() => {
     const saved = localStorage.getItem(`komtekle-${dateKey}`);
@@ -31,9 +33,14 @@ function App() {
 
   useEffect(() => {
     if (hasWon) {
-      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+      if (halloween) {
+        const shapes = ['🎃', '👻', '🦇'].map(text => confetti.shapeFromText({ text, scalar: 2 }));
+        confetti({ particleCount: 60, spread: 100, origin: { y: 0.6 }, shapes, scalar: 2 });
+      } else {
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+      }
     }
-  }, [hasWon]);
+  }, [hasWon, halloween]);
 
   const potentialAnswer = !hasWon && guesses.length > 0 && isPotentialAnswer(guesses[0], target);
 
@@ -82,12 +89,22 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-6 md:py-10 px-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-white">Komtekle</h1>
-      <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">Gjett hva eller hvem som er riktig svar i dag!</p>
+    <div
+      className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-6 md:py-10 px-4"
+      style={halloween ? { backgroundImage: 'radial-gradient(ellipse at top, rgba(249, 115, 22, 0.18), rgba(124, 58, 237, 0.12) 40%, transparent 70%)' } : undefined}
+    >
+      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-white">
+        {halloween ? '🎃 Komtekle 🦇' : 'Komtekle'}
+      </h1>
+      <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">
+        {halloween ? 'Gjett hva eller hvem som hjemsøker oss i dag! 👻' : 'Gjett hva eller hvem som er riktig svar i dag!'}
+      </p>
 
       {hasWon ? (
         <div className="w-full max-w-md mb-10 p-6 text-center bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 animate-fade-in-up">
+          {halloween && (
+            <img src="/doot.gif" alt="Skjelett som spiller trompet" className="mx-auto mb-4 w-40 rounded-2xl" />
+          )}
           <h2 className="text-3xl font-bold text-white mb-2">Så flink du er! 🎉</h2>
           <p className="text-gray-400 mb-6">Du fant dagens karakter i {guesses.length} forsøk.</p>
           <button
@@ -122,7 +139,7 @@ function App() {
             <input
               type="text"
               placeholder="Skriv inn et navn..."
-              className="w-full py-4 pl-14 pr-6 rounded-full bg-white text-gray-900 placeholder-gray-500 shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              className={`w-full py-4 pl-14 pr-6 rounded-full bg-white text-gray-900 placeholder-gray-500 shadow-lg focus:outline-none focus:ring-2 ${halloween ? 'focus:ring-orange-500' : 'focus:ring-green-500'}`}
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setActiveIndex(0); }}
               onKeyDown={handleKeyDown}
