@@ -682,7 +682,6 @@
         "name": "Frank",
         "gender": "Mann",
         "role": [
-            "Lecturer",
             "Legende",
             "Voksen"
         ],
@@ -749,7 +748,8 @@
         "name": "Trond Vatten",
         "gender": "Mann",
         "role": [
-            "Voksen"
+            "Voksen",
+            "Lecturer"
         ],
         "height": "Menneskehøyde",
         "certified mojavebabe": "Nei",
