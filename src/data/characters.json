@@ -64,6 +64,19 @@
         "profil": "Sikkerhet"
     },
     {
+        "name": "Anna",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Langt nord",
+        "profil": "Entreprenørskap?"
+    },
+    {
         "name": "Axel Strand",
         "gender": "Mann",
         "role": [
