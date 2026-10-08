@@ -1,291 +1,61 @@
-import { useState, useEffect, useMemo, KeyboardEvent } from 'react';
-import confetti from 'canvas-confetti';
-import characterData from './data/characters.json';
-import { GAME_FEATURES } from './gameConfig';
-import { Character } from './types';
-import {
-  getDailyCharacter,
-  getImagePath,
-  getFeatureValue,
-  evaluateFeature,
-  isPotentialAnswer,
-  isHalloween
-} from './utils';
+import { useState, useMemo } from 'react';
+import { isHalloween } from './utils';
+import ClassicGame from './ClassicGame';
+import ImageGame from './ImageGame';
+
+type Mode = 'klassisk' | 'bilde';
+
+const MODES: { key: Mode; label: string }[] = [
+  { key: 'klassisk', label: 'Klassisk' },
+  { key: 'bilde', label: 'Bilde' },
+];
+
+const getModeFromUrl = (): Mode =>
+  new URLSearchParams(window.location.search).get('mode') === 'bilde' ? 'bilde' : 'klassisk';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [copied, setCopied] = useState(false);
-
-  const { target, dateKey } = useMemo(() => getDailyCharacter(), []);
   const halloween = useMemo(() => isHalloween(), []);
+  const [mode, setMode] = useState<Mode>(getModeFromUrl);
 
-  const [guesses, setGuesses] = useState<Character[]>(() => {
-    const saved = localStorage.getItem(`komtekle-${dateKey}`);
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem(`komtekle-${dateKey}`, JSON.stringify(guesses));
-  }, [guesses, dateKey]);
-
-  const hasWon = guesses.length > 0 && guesses[0].name === target.name;
-
-  useEffect(() => {
-    if (hasWon) {
-      if (halloween) {
-        const shapes = ['🎃', '👻', '🦇'].map(text => confetti.shapeFromText({ text, scalar: 2 }));
-        confetti({ particleCount: 60, spread: 100, origin: { y: 0.6 }, shapes, scalar: 2 });
-      } else {
-        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
-      }
-    }
-  }, [hasWon, halloween]);
-
-  const potentialAnswer = !hasWon && guesses.length > 0 && isPotentialAnswer(guesses[0], target);
-
-  const filteredCharacters = (characterData as Character[]).filter(char =>
-    char.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    !guesses.some(g => g.name === char.name)
-  );
-
-  const handleGuess = (character: Character) => {
-    if (hasWon || !character) return;
-    setGuesses([character, ...guesses]);
-    setSearchTerm('');
-    setActiveIndex(0);
+  const changeMode = (newMode: Mode) => {
+    setMode(newMode);
+    // Keep the mode in the URL so links can be shared (other params like ?halloween are kept)
+    const params = new URLSearchParams(window.location.search);
+    if (newMode === 'bilde') params.set('mode', 'bilde');
+    else params.delete('mode');
+    const query = params.toString();
+    window.history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (filteredCharacters.length === 0) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveIndex((prev) => (prev < filteredCharacters.length - 1 ? prev + 1 : prev));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActiveIndex((prev) => (prev > 0 ? prev - 1 : 0));
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      handleGuess(filteredCharacters[activeIndex]);
-    }
-  };
-
-  // --- DYNAMIC SHARE LOGIC ---
-  const shareResult = () => {
-    const emojiGrid = [...guesses].reverse().map(g => {
-      // Create a green/yellow/red square for every feature configured in GAME_FEATURES
-      return ['🟩', ...GAME_FEATURES.map(feature => {
-        const gVal = getFeatureValue(g, feature.key);
-        const tVal = getFeatureValue(target, feature.key);
-        const { color } = evaluateFeature(gVal, tVal, feature);
-        return color === 'green' ? '🟩' : color === 'yellow' ? '🟨' : '🟥';
-      })].join(''); // Includes a forced green square for the Name Image block
-    }).join('\n');
-
-    const shareText = `Komtekle - ${dateKey}\nFant i ${guesses.length} forsøk!\n\n${emojiGrid}\n\nhttps://komtekle.netlify.app`;
-    navigator.clipboard.writeText(shareText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const subtitle =
+    mode === 'bilde'
+      ? (halloween ? 'Gjett hvem som gjemmer seg på bildet! 👻' : 'Gjett hvem som er på bildet!')
+      : (halloween ? 'Gjett hva eller hvem som hjemsøker oss i dag! 👻' : 'Gjett hva eller hvem som er riktig svar i dag!');
 
   return (
     <div
       className="min-h-screen bg-[#121212] text-white font-sans flex flex-col items-center py-6 md:py-10 px-4"
       style={halloween ? { backgroundImage: 'radial-gradient(ellipse at top, rgba(249, 115, 22, 0.18), rgba(124, 58, 237, 0.12) 40%, transparent 70%)' } : undefined}
     >
-      <h1 className="text-4xl md:text-5xl font-bold mb-2 tracking-wider text-white">
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-wider text-white">
         {halloween ? '🎃 Komtekle 🦇' : 'Komtekle'}
       </h1>
-      <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">
-        {halloween ? 'Gjett hva eller hvem som hjemsøker oss i dag! 👻' : 'Gjett hva eller hvem som er riktig svar i dag!'}
-      </p>
 
-      {hasWon ? (
-        <div className="w-full max-w-md mb-10 p-6 text-center bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 animate-fade-in-up">
-          {halloween && (
-            <img src="/doot.gif" alt="Skjelett som spiller trompet" className="mx-auto mb-4 w-40 rounded-2xl" />
-          )}
-          <h2 className="text-3xl font-bold text-white mb-2">Så flink du er! 🎉</h2>
-          <p className="text-gray-400 mb-6">Du fant dagens karakter i {guesses.length} forsøk.</p>
+      <div className="flex gap-1 p-1 mb-4 bg-gray-800 rounded-full shadow-lg shadow-black/50">
+        {MODES.map(({ key, label }) => (
           <button
-            onClick={shareResult}
-            className="bg-white hover:bg-gray-200 text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg transition-colors cursor-pointer"
+            key={key}
+            onClick={() => changeMode(key)}
+            className={`px-6 py-2 rounded-full font-semibold transition-colors cursor-pointer ${mode === key ? 'bg-white text-gray-900' : 'text-gray-300 hover:text-white'}`}
           >
-            {copied ? 'Kopiert!' : 'Del resultat 📋'}
+            {label}
           </button>
-        </div>
-      ) : (
-        <div className="relative w-full max-w-md mb-10 z-20">
-          {potentialAnswer && (
-            <div className="mb-4 p-4 rounded-2xl bg-yellow-500 text-black text-center shadow-lg shadow-black/50 animate-fade-in-up">
-              <div className="font-semibold">Ekvivalent svar!</div>
-              {guesses[0].name} er veldig lik som svaret, men er ikke riktig!
-            </div>
-          )}
-          <div className="relative">
-            <svg
-              className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Skriv inn et navn..."
-              className={`w-full py-4 pl-14 pr-6 rounded-full bg-white text-gray-900 placeholder-gray-500 shadow-lg focus:outline-none focus:ring-2 ${halloween ? 'focus:ring-orange-500' : 'focus:ring-green-500'}`}
-              value={searchTerm}
-              onChange={(e) => { setSearchTerm(e.target.value); setActiveIndex(0); }}
-              onKeyDown={handleKeyDown}
-            />
-          </div>
+        ))}
+      </div>
 
-          {searchTerm.length > 0 && filteredCharacters.length > 0 && (
-            <ul className="absolute z-10 w-full bg-gray-800 border border-gray-700 mt-1 max-h-60 overflow-y-auto rounded shadow-xl">
-              {filteredCharacters.map((char, index) => (
-                <li
-                  key={char.name}
-                  className={`p-3 cursor-pointer border-b border-gray-700 last:border-b-0 flex items-center gap-3 ${index === activeIndex ? 'bg-gray-600' : 'hover:bg-gray-700'}`}
-                  onClick={() => handleGuess(char)}
-                  onMouseEnter={() => setActiveIndex(index)}
-                >
-                  <img
-                    src={getImagePath(char.name)}
-                    alt={char.name}
-                    className="w-8 h-8 rounded-full object-cover bg-gray-900 border border-gray-600"
-                    onError={(e) => { e.currentTarget.src = char.gender === 'Kvinne' ? '/character_images/default_female_avatar.jpg' : '/character_images/default_male_avatar.jpg'; }}
-                  />
-                  {char.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      <p className="text-gray-400 mb-6 md:mb-8 text-center max-w-md">{subtitle}</p>
 
-      {/* MOBILE: one card per guess */}
-      {guesses.length > 0 && (
-        <div className="md:hidden w-full max-w-md flex flex-col gap-4 pb-4">
-          {guesses.map((guess) => (
-            <div key={guess.name} className="bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 p-3 animate-fade-in-up">
-              <div className="flex items-center gap-4 pb-3 mb-3 border-b border-gray-700">
-                <img
-                  src={getImagePath(guess.name)}
-                  alt={guess.name}
-                  className="w-24 h-24 shrink-0 rounded-full object-cover bg-gray-900 border-2 border-gray-600"
-                  onError={(e) => { e.currentTarget.src = guess.gender === 'Kvinne' ? '/character_images/default_female_avatar.jpg' : '/character_images/default_male_avatar.jpg'; }}
-                />
-                <span className="text-2xl font-semibold">{guess.name}</span>
-              </div>
-              <div className="grid grid-cols-8 gap-2">
-                {GAME_FEATURES.map((feature) => {
-                  const gVal = getFeatureValue(guess, feature.key);
-                  const tVal = getFeatureValue(target, feature.key);
-                  const { color, arrow, displayValue } = evaluateFeature(gVal, tVal, feature);
-
-                  const bgColor =
-                    color === 'green' ? 'bg-green-500' :
-                      color === 'yellow' ? 'bg-yellow-500 text-black' :
-                        'bg-red-500';
-
-                  return (
-                    <div
-                      key={feature.key}
-                      className={`${feature.mobileSpanClass ?? 'col-span-2'} relative min-h-[5.5rem] flex flex-col items-center justify-center gap-1 p-2 overflow-hidden rounded-xl text-center transition-colors duration-500 ${bgColor}`}
-                    >
-                      {arrow === 'up' && (
-                        <img src="/arrow_up.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
-                      )}
-                      {arrow === 'down' && (
-                        <img src="/arrow_down.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
-                      )}
-                      <span className="relative z-10 text-[9px] uppercase leading-tight opacity-80">
-                        {feature.label}
-                      </span>
-                      <span className="relative z-10 text-xs font-semibold leading-tight break-words w-full">
-                        {displayValue}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* DESKTOP: table with one row per guess */}
-      {guesses.length > 0 && (
-        <div className="hidden md:block max-w-5xl overflow-x-auto pb-4">
-          <div className="flex flex-col gap-2 min-w-[650px]">
-
-            {/* DYNAMIC HEADERS */}
-            <div className="flex gap-2 text-xs font-bold text-gray-400 uppercase text-center pb-2 border-b border-gray-700">
-              <div className="w-24 shrink-0">Karakter</div>
-              {GAME_FEATURES.map((feature) => (
-                <div key={feature.key} className={`${feature.widthClass} shrink-0`}>
-                  {feature.label}
-                </div>
-              ))}
-            </div>
-
-            {/* DYNAMIC ROWS */}
-            {guesses.map((guess) => (
-              <div key={guess.name} className="flex gap-2 text-center text-sm font-semibold animate-fade-in-up">
-
-                {/* Character Name / Image Block (Always present) */}
-                <div className="w-24 h-24 shrink-0 flex flex-col items-center justify-end bg-gray-900 border border-gray-600 rounded overflow-hidden relative">
-                  <img
-                    src={getImagePath(guess.name)}
-                    alt={guess.name}
-                    className="absolute inset-0 w-full h-full object-cover opacity-70"
-                    onError={(e) => { e.currentTarget.src = guess.gender === 'Kvinne' ? '/character_images/default_female_avatar.jpg' : '/character_images/default_male_avatar.jpg'; }}
-                  />
-                  <span className="relative z-10 bg-black/80 px-1 py-0.5 text-[10px] leading-tight break-words w-full text-center">
-                    {guess.name}
-                  </span>
-                </div>
-
-                {/* Dynamically Generate Property Blocks */}
-                {GAME_FEATURES.map((feature) => {
-                  const gVal = getFeatureValue(guess, feature.key);
-                  const tVal = getFeatureValue(target, feature.key);
-                  const { color, arrow, displayValue } = evaluateFeature(gVal, tVal, feature);
-
-                  const bgColor =
-                    color === 'green' ? 'bg-green-500' :
-                      color === 'yellow' ? 'bg-yellow-500 text-black' :
-                        'bg-red-500';
-
-                  return (
-                    <div
-                      key={feature.key}
-                      className={`${feature.widthClass} shrink-0 flex items-center justify-center p-2 overflow-hidden rounded border border-gray-900 shadow transition-colors duration-500 ${bgColor} relative`}
-                    >
-                      {arrow === 'up' && (
-                        <img src="/arrow_up.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
-                      )}
-                      {arrow === 'down' && (
-                        <img src="/arrow_down.png" alt="" className="absolute inset-0 w-full h-full object-contain opacity-20" />
-                      )}
-                      <span className="relative z-10 text-xs break-words">
-                        {displayValue}
-                      </span>
-                    </div>
-                  );
-                })}
-
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {mode === 'bilde' ? <ImageGame halloween={halloween} /> : <ClassicGame halloween={halloween} />}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import confetti from 'canvas-confetti';
 import { FeatureConfig, ComparisonResult, Character } from './types';
 import characterData from './data/characters.json';
 
@@ -95,4 +96,32 @@ export const isHalloween = (date: Date = new Date()): boolean => {
     const month = date.getMonth(); // 0-indexed: 9 = October, 10 = November
     const day = date.getDate();
     return (month === 9 && day >= 15) || (month === 10 && day === 1);
+};
+
+export const getDefaultAvatar = (char: Character): string =>
+    char.gender === 'Kvinne' ? '/character_images/default_female_avatar.jpg' : '/character_images/default_male_avatar.jpg';
+
+// Deterministic number in [0, 1) from a string, so everyone gets the same "random" value per day
+export const seededRandom = (seed: string): number => {
+    let h = 2166136261;
+    for (let i = 0; i < seed.length; i++) {
+        h ^= seed.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+    }
+    // Final mix (MurmurHash3 fmix32) so seeds differing by one character give very different values
+    h ^= h >>> 16;
+    h = Math.imul(h, 0x85ebca6b);
+    h ^= h >>> 13;
+    h = Math.imul(h, 0xc2b2ae35);
+    h ^= h >>> 16;
+    return (h >>> 0) / 4294967296;
+};
+
+export const fireWinConfetti = (halloween: boolean) => {
+    if (halloween) {
+        const shapes = ['🎃', '👻', '🦇'].map(text => confetti.shapeFromText({ text, scalar: 2 }));
+        confetti({ particleCount: 60, spread: 100, origin: { y: 0.6 }, shapes, scalar: 2 });
+    } else {
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    }
 };
