@@ -16,7 +16,7 @@ const useDailyImageTarget = (dateKey: string) => {
 
   useEffect(() => {
     const characters = characterData as Character[];
-    const start = Math.floor(seededRandom(`bilde-${dateKey}`) * characters.length);
+    const start = Math.floor(seededRandom(`bilde-v2-${dateKey}`) * characters.length);
     let cancelled = false;
 
     const tryAttempt = (attempt: number) => {
