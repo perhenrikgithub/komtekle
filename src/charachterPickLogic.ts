@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Character } from './types';
 import characterData from './data/characters.json';
 import { getImagePath, seededRandom } from './utils';
-
-export const AVOID_N_LAST_CHARACTERS = 10;
+import { AVOID_N_LAST_CHARACTERS } from './gameConfig';
 
 /** Current UTC date in YYYY-MM-DD */
 export const getTodayDateKey = (): string => new Date().toISOString().slice(0, 10);
