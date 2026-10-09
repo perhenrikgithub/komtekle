@@ -1,56 +1,34 @@
-import { useState, useEffect, useMemo } from 'react';
-import characterData from './data/characters.json';
+import { useEffect, useMemo } from 'react';
 import { Character } from './types';
-import { getImagePath, getDefaultAvatar, seededRandom, fireWinConfetti } from './utils';
+import {
+  getImagePath,
+  getDefaultAvatar,
+  seededRandom,
+  fireWinConfetti,
+} from './utils';
+import {
+  getTodayDateKey,
+  getDailyClassicCharacter,
+  useDailyImageTarget,
+  useDailyGuesses,
+} from './charachterPickLogic';
 import SearchBox from './components/SearchBox';
 import WinCard from './components/WinCard';
 import { buildShareText, imageWonKey } from './share';
 
-// Zoom level per wrong guess. Fully zoomed out after 6 wrong guesses.
 const ZOOM_STEPS = [7, 5, 3.7, 2.6, 1.9, 1.4, 1];
 
-// Characters without an image file are skipped: try today's pick and move on until an image loads.
-// Every player gets the same result since everyone sees the same files.
-const useDailyImageTarget = (dateKey: string) => {
-  const [target, setTarget] = useState<Character | null>(null);
-
-  useEffect(() => {
-    const characters = characterData as Character[];
-    const start = Math.floor(seededRandom(`bilde-v2-${dateKey}`) * characters.length);
-    let cancelled = false;
-
-    const tryAttempt = (attempt: number) => {
-      if (cancelled || attempt >= characters.length) return;
-      const candidate = characters[(start + attempt) % characters.length];
-      const img = new Image();
-      img.onload = () => { if (!cancelled) setTarget(candidate); };
-      img.onerror = () => tryAttempt(attempt + 1);
-      img.src = getImagePath(candidate.name);
-    };
-
-    tryAttempt(0);
-    return () => { cancelled = true; };
-  }, [dateKey]);
-
-  return target;
-};
-
 function ImageGame({ halloween }: { halloween: boolean }) {
-  const dateKey = useMemo(() => new Date().toISOString().slice(0, 10), []);
-  const target = useDailyImageTarget(dateKey);
+  const dateKey = useMemo(() => getTodayDateKey(), []);
 
-  // Random point (per day) the image zooms in on, in percent of the image
+  // Today's classic target is excluded so Image never collides with Classic
+  const classicTarget = useMemo(() => getDailyClassicCharacter(dateKey), [dateKey]);
+  const target = useDailyImageTarget(dateKey, classicTarget?.name);
+
   const focusX = seededRandom(`bilde-x-${dateKey}`) * 100;
   const focusY = seededRandom(`bilde-y-${dateKey}`) * 100;
 
-  const [guesses, setGuesses] = useState<Character[]>(() => {
-    const saved = localStorage.getItem(`komtekle-bilde-${dateKey}`);
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem(`komtekle-bilde-${dateKey}`, JSON.stringify(guesses));
-  }, [guesses, dateKey]);
+  const [guesses, setGuesses] = useDailyGuesses(`komtekle-bilde-${dateKey}`);
 
   const hasWon = target !== null && guesses.length > 0 && guesses[0].name === target.name;
 
@@ -92,7 +70,7 @@ function ImageGame({ halloween }: { halloween: boolean }) {
         <WinCard guessCount={guesses.length} halloween={halloween} getShareText={buildShareText} />
       ) : (
         <div className="relative w-full max-w-md mb-10 z-20">
-          <SearchBox guessedNames={guesses.map(g => g.name)} onGuess={handleGuess} halloween={halloween} showImages={false} />
+          <SearchBox guessedNames={guesses.map((g) => g.name)} onGuess={handleGuess} halloween={halloween} showImages={false} />
         </div>
       )}
 
@@ -101,7 +79,8 @@ function ImageGame({ halloween }: { halloween: boolean }) {
           {guesses.map((guess) => (
             <div
               key={guess.name}
-              className={`flex items-center gap-3 p-2 rounded-2xl shadow-lg shadow-black/50 animate-fade-in-up ${guess.name === target?.name ? 'bg-green-500' : 'bg-red-500'}`}
+              className={`flex items-center gap-3 p-2 rounded-2xl shadow-lg shadow-black/50 animate-fade-in-up ${guess.name === target?.name ? 'bg-green-500' : 'bg-red-500'
+                }`}
             >
               <img
                 src={getImagePath(guess.name)}

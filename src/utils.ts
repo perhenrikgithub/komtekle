@@ -1,27 +1,22 @@
 import confetti from 'canvas-confetti';
 import { FeatureConfig, ComparisonResult, Character } from './types';
-import characterData from './data/characters.json';
+// import characterData from './data/characters.json';
 
 export const getImagePath = (name: string): string => {
     const cleanName = name.toLowerCase().replace(/[^a-z0-9æøå]/gi, '');
     return `/character_images/${cleanName}.jpg`;
 };
 
-export const getDailyCharacter = () => {
-    const definedName = ""; // Force a specific character here if needed
-    const dateKey = new Date().toISOString().slice(0, 10);
+// export const getDailyCharacter = () => {
+//     const dateKey = new Date().toISOString().slice(0, 10);
 
-    if (definedName) {
-        const character = characterData.find(char => char.name === definedName);
-        if (character) return { target: character as Character, dateKey };
-    }
 
-    // Deterministically select a character based on date
-    const seed = Number(dateKey.replaceAll("-", ""));
-    const index = seed % characterData.length;
+//     // Deterministically select a character based on date
+//     const seed = Number(dateKey.replaceAll("-", ""));
+//     const index = seed % characterData.length;
 
-    return { target: characterData[index] as Character, dateKey };
-};
+//     return { target: characterData[index] as Character, dateKey };
+// };
 
 // Safely extracts a value from the character, checking for alternative hyphen/underscore spellings
 export const getFeatureValue = (char: Character, key: string) => {
