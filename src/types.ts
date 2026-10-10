@@ -26,5 +26,6 @@ export interface Character {
     verv_whipped?: string;
     region: string;
     profil: string;
+    dateAdded: string;
     [key: string]: any; // Allows for arbitrary new keys in JSON
 }

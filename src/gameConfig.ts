@@ -1,5 +1,8 @@
 import { FeatureConfig } from './types';
 
+// The number of most recent characters to avoid when selecting a new daily character
+export const AVOID_N_LAST_CHARACTERS = 7;
+
 // For context: the image has a width of 24 (tailwind w-24)
 
 export const GAME_FEATURES: FeatureConfig[] = [

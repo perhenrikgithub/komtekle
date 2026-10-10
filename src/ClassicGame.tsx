@@ -1,36 +1,43 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { GAME_FEATURES } from './gameConfig';
 import { Character } from './types';
 import {
-  getDailyCharacter,
   getImagePath,
   getDefaultAvatar,
   getFeatureValue,
   evaluateFeature,
   isPotentialAnswer,
-  fireWinConfetti
+  fireWinConfetti,
 } from './utils';
+import {
+  getTodayDateKey,
+  getDailyClassicCharacter,
+  useDailyGuesses
+} from './charachterPickLogic';
+
 import SearchBox from './components/SearchBox';
 import WinCard from './components/WinCard';
 import { buildShareText } from './share';
 
 function ClassicGame({ halloween }: { halloween: boolean }) {
-  const { target, dateKey } = useMemo(() => getDailyCharacter(), []);
+  const dateKey = useMemo(() => getTodayDateKey(), []);
+  const target = useMemo(() => getDailyClassicCharacter(dateKey), [dateKey]);
 
-  const [guesses, setGuesses] = useState<Character[]>(() => {
-    const saved = localStorage.getItem(`komtekle-${dateKey}`);
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [guesses, setGuesses] = useDailyGuesses(`komtekle-${dateKey}`);
 
-  useEffect(() => {
-    localStorage.setItem(`komtekle-${dateKey}`, JSON.stringify(guesses));
-  }, [guesses, dateKey]);
-
-  const hasWon = guesses.length > 0 && guesses[0].name === target.name;
+  const hasWon = guesses.length > 0 && guesses[0].name === target?.name;
 
   useEffect(() => {
     if (hasWon) fireWinConfetti(halloween);
   }, [hasWon, halloween]);
+
+  if (!target) {
+    return (
+      <div className="text-center text-gray-400">
+        Ingen tilgjengelige karakterer for dagens dato.
+      </div>
+    );
+  }
 
   const potentialAnswer = !hasWon && guesses.length > 0 && isPotentialAnswer(guesses[0], target);
 
@@ -42,7 +49,7 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
   return (
     <>
       {hasWon ? (
-        <WinCard guessCount={guesses.length} halloween={halloween} getShareText={() => buildShareText()} />
+        <WinCard guessCount={guesses.length} halloween={halloween} getShareText={buildShareText} />
       ) : (
         <div className="relative w-full max-w-md mb-10 z-20">
           {potentialAnswer && (
@@ -51,7 +58,7 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
               {guesses[0].name} er veldig lik som svaret, men er ikke riktig!
             </div>
           )}
-          <SearchBox guessedNames={guesses.map(g => g.name)} onGuess={handleGuess} halloween={halloween} />
+          <SearchBox guessedNames={guesses.map((g) => g.name)} onGuess={handleGuess} halloween={halloween} />
         </div>
       )}
 
@@ -110,8 +117,6 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
       {guesses.length > 0 && (
         <div className="hidden md:block max-w-5xl overflow-x-auto pb-4">
           <div className="flex flex-col gap-2 min-w-[650px]">
-
-            {/* DYNAMIC HEADERS */}
             <div className="flex gap-2 text-xs font-bold text-gray-400 uppercase text-center pb-2 border-b border-gray-700">
               <div className="w-24 shrink-0">Karakter</div>
               {GAME_FEATURES.map((feature) => (
@@ -121,11 +126,8 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
               ))}
             </div>
 
-            {/* DYNAMIC ROWS */}
             {guesses.map((guess) => (
               <div key={guess.name} className="flex gap-2 text-center text-sm font-semibold animate-fade-in-up">
-
-                {/* Character Name / Image Block (Always present) */}
                 <div className="w-24 h-24 shrink-0 flex flex-col items-center justify-end bg-gray-900 border border-gray-600 rounded overflow-hidden relative">
                   <img
                     src={getImagePath(guess.name)}
@@ -138,7 +140,6 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
                   </span>
                 </div>
 
-                {/* Dynamically Generate Property Blocks */}
                 {GAME_FEATURES.map((feature) => {
                   const gVal = getFeatureValue(guess, feature.key);
                   const tVal = getFeatureValue(target, feature.key);
@@ -166,7 +167,6 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
                     </div>
                   );
                 })}
-
               </div>
             ))}
           </div>
