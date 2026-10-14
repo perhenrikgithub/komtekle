@@ -69,6 +69,20 @@
         "dateAdded": "2026-01-01"
     },
     {
+        "name": "Anna",
+        "gender": "Kvinne",
+        "role": [
+            "Student",
+            "5."
+        ],
+        "height": "Menneskehøyde",
+        "certified mojavebabe": "Ja",
+        "verv-whipped": "Nei",
+        "region": "Langt nord",
+        "profil": "Entreprenørskap?",
+        "dateAdded": "2026-10-14"
+    },
+    {
         "name": "Axel Strand",
         "gender": "Mann",
         "role": [
