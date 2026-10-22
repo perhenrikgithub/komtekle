@@ -8,8 +8,7 @@ import {
 } from './utils';
 import {
   getTodayDateKey,
-  getDailyClassicCharacter,
-  useDailyImageTarget,
+  getDailyImageCharacter,
   useDailyGuesses,
 } from './charachterPickLogic';
 import SearchBox from './components/SearchBox';
@@ -21,9 +20,8 @@ const ZOOM_STEPS = [7, 5, 3.7, 2.6, 1.9, 1.4, 1];
 function ImageGame({ halloween }: { halloween: boolean }) {
   const dateKey = useMemo(() => getTodayDateKey(), []);
 
-  // Today's classic target is excluded so Image never collides with Classic
-  const classicTarget = useMemo(() => getDailyClassicCharacter(dateKey), [dateKey]);
-  const target = useDailyImageTarget(dateKey, classicTarget?.name);
+  // Never the same as today's classic target, and avoids the last N image targets (see charachterPickLogic)
+  const target = useMemo(() => getDailyImageCharacter(dateKey), [dateKey]);
 
   const focusX = seededRandom(`bilde-x-${dateKey}`) * 100;
   const focusY = seededRandom(`bilde-y-${dateKey}`) * 100;
