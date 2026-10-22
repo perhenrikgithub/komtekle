@@ -40,7 +40,7 @@ def get_image_path(name):
     clean_name = ''.join(c for c in name.lower() if c.isalnum() or c in 'æøå')
     return f'public/character_images/{clean_name}.jpg'
 
-CHAR_WITHOUT_IMAGE = False
+CHAR_WITHOUT_IMAGE = True
 IMAGE_WITHOUT_CHAR = False
 EQUAL_USERS = True
 
