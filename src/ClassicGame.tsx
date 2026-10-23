@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { GAME_FEATURES } from './gameConfig';
 import { Character } from './types';
 import {
-  getImagePath,
+  getThumbPath,
   getDefaultAvatar,
   getFeatureValue,
   evaluateFeature,
@@ -69,7 +69,7 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
             <div key={guess.name} className="bg-gray-800 border border-gray-600 rounded-2xl shadow-lg shadow-black/50 p-3 animate-fade-in-up">
               <div className="flex items-center gap-4 pb-3 mb-3 border-b border-gray-700">
                 <img
-                  src={getImagePath(guess.name)}
+                  src={getThumbPath(guess.name)}
                   alt={guess.name}
                   className="w-24 h-24 shrink-0 rounded-full object-cover bg-gray-900 border-2 border-gray-600"
                   onError={(e) => { e.currentTarget.src = getDefaultAvatar(guess); }}
@@ -130,7 +130,7 @@ function ClassicGame({ halloween }: { halloween: boolean }) {
               <div key={guess.name} className="flex gap-2 text-center text-sm font-semibold animate-fade-in-up">
                 <div className="w-24 h-24 shrink-0 flex flex-col items-center justify-end bg-gray-900 border border-gray-600 rounded overflow-hidden relative">
                   <img
-                    src={getImagePath(guess.name)}
+                    src={getThumbPath(guess.name)}
                     alt={guess.name}
                     className="absolute inset-0 w-full h-full object-cover opacity-70"
                     onError={(e) => { e.currentTarget.src = getDefaultAvatar(guess); }}

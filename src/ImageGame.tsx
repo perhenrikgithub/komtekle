@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { Character } from './types';
 import {
   getImagePath,
+  getThumbPath,
   getDefaultAvatar,
   seededRandom,
   fireWinConfetti,
@@ -81,7 +82,7 @@ function ImageGame({ halloween }: { halloween: boolean }) {
                 }`}
             >
               <img
-                src={getImagePath(guess.name)}
+                src={getThumbPath(guess.name)}
                 alt={guess.name}
                 className="w-12 h-12 shrink-0 rounded-full object-cover bg-gray-900 border-2 border-white/30"
                 onError={(e) => { e.currentTarget.src = getDefaultAvatar(guess); }}

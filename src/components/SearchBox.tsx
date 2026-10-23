@@ -1,7 +1,44 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import characterData from '../data/characters.json';
 import { Character } from '../types';
-import { getImagePath, getDefaultAvatar } from '../utils';
+import { getThumbPath, getDefaultAvatar } from '../utils';
+
+// Avatar that only starts downloading once its row is (nearly) visible inside the scrollable
+// dropdown. Native loading="lazy" measures against the page viewport, not the dropdown's own
+// scroll box, so it would still load every match; observing with the list as root fixes that.
+function ListAvatar({ char }: { char: Character }) {
+  const ref = useRef<HTMLImageElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || visible) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { root: el.closest('ul'), rootMargin: '100px 0px' } // ~2 rows of look-ahead
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [visible]);
+
+  return (
+    <img
+      ref={ref}
+      src={visible ? getThumbPath(char.name) : undefined}
+      alt={char.name}
+      width={32}
+      height={32}
+      decoding="async"
+      className="w-8 h-8 shrink-0 rounded-full object-cover bg-gray-900 border border-gray-600"
+      onError={(e) => { e.currentTarget.src = getDefaultAvatar(char); }}
+    />
+  );
+}
 
 interface SearchBoxProps {
   guessedNames: string[];
@@ -75,14 +112,7 @@ function SearchBox({ guessedNames, onGuess, halloween, showImages = true }: Sear
               onClick={() => handleGuess(char)}
               onMouseEnter={() => setActiveIndex(index)}
             >
-              {showImages && (
-                <img
-                  src={getImagePath(char.name)}
-                  alt={char.name}
-                  className="w-8 h-8 rounded-full object-cover bg-gray-900 border border-gray-600"
-                  onError={(e) => { e.currentTarget.src = getDefaultAvatar(char); }}
-                />
-              )}
+              {showImages && <ListAvatar char={char} />}
               {char.name}
             </li>
           ))}
