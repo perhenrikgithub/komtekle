@@ -7,6 +7,20 @@ export const getImagePath = (name: string): string => {
     return `/character_images/${cleanName}.jpg`;
 };
 
+// Images come in exactly two sizes:
+//  - original (getImagePath): only for the daily photo in image mode, where zoom needs every pixel
+//  - thumb (getThumbPath): every avatar (search list, guesses). One fixed size so the same URL is
+//    reused everywhere and the browser/CDN cache it once.
+// Thumbs are resized by Netlify Image CDN (AVIF/WebP picked from the browser's Accept header).
+// Only in production builds: `vite dev` has no /.netlify/images endpoint.
+const THUMB_WIDTH = 192; // largest avatar is 96 CSS px -> 2x for retina
+
+export const getThumbPath = (name: string): string => {
+    const path = getImagePath(name);
+    if (!import.meta.env.PROD) return path;
+    return `/.netlify/images?url=${encodeURIComponent(path)}&w=${THUMB_WIDTH}&q=75`;
+};
+
 // export const getDailyCharacter = () => {
 //     const dateKey = new Date().toISOString().slice(0, 10);
 
